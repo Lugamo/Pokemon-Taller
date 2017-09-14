@@ -60,15 +60,9 @@ public class MainActivity extends Activity {
                         nombre = PokInfo.getID(response);
                         imagen = PokInfo.getImageBack(response);
                         mTxtDisplay.setText("Response: " + nombre);
-                        try {
-                            backPokemon = (ImageView)findViewById(R.id.imageBack);
-                            Bitmap bitmap = BitmapFactory.decodeStream((InputStream)new URL(imagen).getContent());
-                            backPokemon.setImageBitmap(bitmap);
-                        } catch (MalformedURLException e) {
-                            e.printStackTrace();
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
+                        new DownloadImageTask((ImageView) findViewById(R.id.imageBack))
+                                .execute("http://imagenpng.com/wp-content/uploads/2016/09/Pikachu-png-2.png");
+
                     }
                 }, new Response.ErrorListener() {
 
