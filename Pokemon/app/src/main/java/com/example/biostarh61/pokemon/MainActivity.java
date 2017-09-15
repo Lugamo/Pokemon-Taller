@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.view.View;
@@ -26,12 +27,15 @@ import java.net.URL;
 public class MainActivity extends Activity {
     TextView mTxtDisplay,mTxtDisplay2;
     String nombre,imagen,poder1A,poder2A;
+    Button btnAttackOne, btnAttackTwo;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTxtDisplay = (TextView) findViewById(R.id.pkmNameBack);
         mTxtDisplay2 = (TextView) findViewById(R.id.pkmNameFront);
+        btnAttackOne = (Button) findViewById(R.id.AttackOne);
+        btnAttackTwo = (Button) findViewById(R.id.AttackTwo);
         String url = "http://pokeapi.co/api/v2/pokemon/4";
         String url2 = "http://pokeapi.co/api/v2/pokemon/5";
 
@@ -46,6 +50,8 @@ public class MainActivity extends Activity {
                         poder1A = PokInfo.getPowerOne(response);
                         poder2A = PokInfo.getPowerTwo(response);
                         mTxtDisplay.setText("Response: " + nombre);
+                        btnAttackOne.setText(poder1A);
+                        btnAttackTwo.setText(poder2A);
                         new DownloadImageTask((ImageView) findViewById(R.id.imageBack))
                                 .execute(imagen);
 
