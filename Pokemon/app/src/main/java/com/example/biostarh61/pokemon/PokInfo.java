@@ -1,5 +1,6 @@
 package com.example.biostarh61.pokemon;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -9,9 +10,11 @@ import org.json.JSONObject;
 
 public class PokInfo {
 
-    private static String name,front_image_url,back_image_url;
+    private static String name,front_image_url,back_image_url,power;
+    private static String[] namepower = new String[2];
     private static JSONObject infoSprites = null;
     private static JSONObject image = null;
+    private static JSONArray abilities = null;
     public static String getID(JSONObject info){
         try {
             name = info.getString("name");
@@ -50,4 +53,33 @@ public class PokInfo {
         }
         return back_image_url;
     }
+    public static String getAbilities(JSONObject info, int num){
+        abilities = null;
+        try {
+            abilities = info.getJSONArray("abilities");
+
+            for (int i = 0; i < abilities.length(); i++) {
+                JSONObject c = abilities.getJSONObject(i);
+                // Ability node is JSON Object
+                JSONObject ability = c.getJSONObject("ability");
+                namepower[i] = ability.getString("name");
+
+
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return namepower[num];
+    }
+    public static String getPowerOne (JSONObject info){
+        power = PokInfo.getAbilities(info,0);
+
+        return power;
+    }
+    public static String getPowerTwo (JSONObject info){
+        power = PokInfo.getAbilities(info,1);
+
+        return power;
+    }
+
 }

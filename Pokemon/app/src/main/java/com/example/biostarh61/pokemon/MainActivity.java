@@ -14,6 +14,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -23,14 +24,14 @@ import java.net.MalformedURLException;
 import java.net.URL;
 
 public class MainActivity extends Activity {
-    TextView mTxtDisplay;
-    ImageView mImageView,backPokemon;
-    String nombre,imagen;
+    TextView mTxtDisplay,mTxtDisplay2;
+    String nombre,imagen,poder1A,poder2A;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mTxtDisplay = (TextView) findViewById(R.id.pkmNameBack);
+        mTxtDisplay2 = (TextView) findViewById(R.id.pkmNameFront);
         String url = "http://pokeapi.co/api/v2/pokemon/4";
         String url2 = "http://pokeapi.co/api/v2/pokemon/5";
 
@@ -40,28 +41,13 @@ public class MainActivity extends Activity {
                     @Override
                     public void onResponse(JSONObject response) {
 
-                        /*try {
-                            nombre = response.getString("name");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        JSONObject imagen = null;
-                        try {
-                            imagen = response.getJSONObject("sprites");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-                        try {
-                            mobile = imagen.getString("back_default");
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }*/
-
                         nombre = PokInfo.getID(response);
                         imagen = PokInfo.getImageBack(response);
+                        poder1A = PokInfo.getPowerOne(response);
+                        poder2A = PokInfo.getPowerTwo(response);
                         mTxtDisplay.setText("Response: " + nombre);
                         new DownloadImageTask((ImageView) findViewById(R.id.imageBack))
-                                .execute("http://imagenpng.com/wp-content/uploads/2016/09/Pikachu-png-2.png");
+                                .execute(imagen);
 
                     }
                 }, new Response.ErrorListener() {
@@ -72,6 +58,7 @@ public class MainActivity extends Activity {
 
                     }
                 });
+
 
         // Access the RequestQueue through your singleton class.
         MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
