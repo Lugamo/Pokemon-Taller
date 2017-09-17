@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class PokInfo {
 
-    private static String name,front_image_url,back_image_url,power;
+    private static String name,front_image_url,back_image_url,power,peso;
     private static String[] namepower = new String[2];
     private static JSONObject infoSprites = null;
     private static JSONObject image = null;
@@ -80,6 +80,15 @@ public class PokInfo {
         power = PokInfo.getAbilities(info,1);
 
         return power;
+    }
+    public static String getWeight(JSONObject info){
+        try {
+            peso = info.getString("weight");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return peso;
     }
 
 }

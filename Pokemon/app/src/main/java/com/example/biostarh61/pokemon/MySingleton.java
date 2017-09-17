@@ -7,6 +7,7 @@ package com.example.biostarh61.pokemon;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
+import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -44,7 +45,7 @@ public class MySingleton {
                 });
     }
 
-    public static synchronized MySingleton getInstance(Context context) {
+    public static synchronized MySingleton getInstance(View.OnClickListener context) {
         if (mInstance == null) {
             mInstance = new MySingleton(context);
         }
