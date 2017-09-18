@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public class PokInfo {
 
-    private static String name,front_image_url,back_image_url,power,peso;
+    private static String name,front_image_url,back_image_url,power,peso,numero;
     private static String[] namepower = new String[2];
     private static JSONObject infoSprites = null;
     private static JSONObject image = null;
@@ -89,6 +89,15 @@ public class PokInfo {
         }
 
         return peso;
+    }
+    public static  String getNumero(JSONObject info)
+    {
+        try {
+            numero = info.getString("id");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        return numero;
     }
 
 }
