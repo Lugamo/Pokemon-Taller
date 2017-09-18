@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
     TextView mTxtDisplay,mTxtDisplay2,mTxtPeso1,mTxtPeso2,mTxtNum1,mTxtNum2;
-    String nombre,imagen,peso;
+    String nombre,imagen,peso,numPkmn,nombre2,imagen2,peso2,numPkmn2;
     Button btnGRandom, btnPelear;
 
     @Override
@@ -37,8 +37,10 @@ public class MainActivity extends Activity {
         btnGRandom = (Button) findViewById(R.id.btnRandom);
         btnGRandom.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                String url = "http://pokeapi.co/api/v2/pokemon/4";
-                String url2 = "http://pokeapi.co/api/v2/pokemon/6";
+                int indicePokemon=(int) (Math.random()*200);
+                int indicePokemon2=(int) (Math.random()*200);
+                String url = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon);
+                String url2 = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon2);
                 getJson(url);
                 getJson2(url2);
             }
@@ -51,8 +53,7 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Random rand = new Random();
-                        int numPkmn1 = 5;
+                        numPkmn = PokInfo.getNumero(response);
                         nombre = PokInfo.getID(response);
                         peso = PokInfo.getWeight(response);
                         imagen = PokInfo.getImageFront(response);
@@ -82,13 +83,12 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        Random rand = new Random();
-                        int numPkmn2 = 5;
-                        nombre = PokInfo.getID(response);
-                        peso = PokInfo.getWeight(response);
-                        imagen = PokInfo.getImageFront(response);
-                        mTxtDisplay2.setText(nombre);
-                        mTxtPeso2.setText(peso);
+                        numPkmn2 = PokInfo.getNumero(response);
+                        nombre2 = PokInfo.getID(response);
+                        peso2 = PokInfo.getWeight(response);
+                        imagen2 = PokInfo.getImageFront(response);
+                        mTxtDisplay2.setText(nombre2);
+                        mTxtPeso2.setText(peso2);
                         mTxtNum2.setText("#Pokedex: " + numPkmn2);
                         new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnTwo))
                                 .execute(imagen);
