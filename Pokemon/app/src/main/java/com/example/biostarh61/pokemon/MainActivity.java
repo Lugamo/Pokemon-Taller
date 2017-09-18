@@ -20,7 +20,7 @@ public class MainActivity extends Activity {
     TextView mTxtDisplay,mTxtDisplay2,mTxtPeso1,mTxtPeso2,mTxtNum1,mTxtNum2;
     String nombre,imagen,peso;
     Button btnGRandom, btnPelear;
-    JSONObject respuesta;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,47 +28,83 @@ public class MainActivity extends Activity {
         mTxtDisplay = (TextView) findViewById(R.id.pkmNameOne);
         mTxtDisplay2 = (TextView) findViewById(R.id.pkmNameTwo);
         mTxtPeso1 = (TextView) findViewById(R.id.PkmnWeightOne);
+        mTxtPeso2 = (TextView) findViewById(R.id.PkmnWeightTwo);
         mTxtNum1 = (TextView) findViewById(R.id.PkmnNumOne);
+        mTxtNum2 = (TextView) findViewById(R.id.PkmnNumTwo);
+
+
 
         btnGRandom = (Button) findViewById(R.id.btnRandom);
         btnGRandom.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Random rand = new Random();
-                final int numPkmn1 = rand.nextInt(800);
-                int numPkmn2 = rand.nextInt(800);
-                String url = ("http://pokeapi.co/api/v2/pokemon/"+numPkmn1);
-                String url2 = ("http://pokeapi.co/api/v2/pokemon/"+numPkmn2);
-                JsonObjectRequest jsObjRequest = new JsonObjectRequest
-                        (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
-
-                            @Override
-                            public void onResponse(JSONObject response) {
-                                nombre=PokInfo.getID(response);
-                                peso=PokInfo.getWeight(response);
-                                imagen = PokInfo.getImageFront(response);
-                                mTxtDisplay.setText("Nombre: "+nombre);
-                                mTxtPeso1.setText("Peso: "+peso);
-                                mTxtNum1.setText("#Pokedex: "+numPkmn1);
-                                new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnOne))
-                                        .execute(imagen);
-
-                            }
-                        }, new Response.ErrorListener() {
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                // TODO Auto-generated method stub
-
-                            }
-                        });
-
-
-                // Access the RequestQueue through your singleton class.
-                MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+                String url = "http://pokeapi.co/api/v2/pokemon/4";
+                String url2 = "http://pokeapi.co/api/v2/pokemon/6";
+                getJson(url);
+                getJson2(url2);
             }
         });
 
+    }
+    public void getJson(String url) {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Random rand = new Random();
+                        int numPkmn1 = 5;
+                        nombre = PokInfo.getID(response);
+                        peso = PokInfo.getWeight(response);
+                        imagen = PokInfo.getImageFront(response);
+                        mTxtDisplay.setText(nombre);
+                        mTxtPeso1.setText(peso);
+                        mTxtNum1.setText("#Pokedex: " + numPkmn1);
+                        new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnOne))
+                                .execute(imagen);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
 
 
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
+    }
+    public void getJson2(String url) {
+        JsonObjectRequest jsObjRequest = new JsonObjectRequest
+                (Request.Method.GET, url, null, new Response.Listener<JSONObject>() {
+
+                    @Override
+                    public void onResponse(JSONObject response) {
+                        Random rand = new Random();
+                        int numPkmn2 = 5;
+                        nombre = PokInfo.getID(response);
+                        peso = PokInfo.getWeight(response);
+                        imagen = PokInfo.getImageFront(response);
+                        mTxtDisplay2.setText(nombre);
+                        mTxtPeso2.setText(peso);
+                        mTxtNum2.setText("#Pokedex: " + numPkmn2);
+                        new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnTwo))
+                                .execute(imagen);
+
+                    }
+                }, new Response.ErrorListener() {
+
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // TODO Auto-generated method stub
+
+                    }
+                });
+
+
+        // Access the RequestQueue through your singleton class.
+        MySingleton.getInstance(this).addToRequestQueue(jsObjRequest);
     }
 }

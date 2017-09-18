@@ -45,7 +45,7 @@ public class MySingleton {
                 });
     }
 
-    public static synchronized MySingleton getInstance(View.OnClickListener context) {
+    public static synchronized MySingleton getInstance(Context context) {
         if (mInstance == null) {
             mInstance = new MySingleton(context);
         }
@@ -69,3 +69,4 @@ public class MySingleton {
         return mImageLoader;
     }
 }
+
