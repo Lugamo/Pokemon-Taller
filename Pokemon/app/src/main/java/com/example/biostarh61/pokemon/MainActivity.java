@@ -1,6 +1,7 @@
 package com.example.biostarh61.pokemon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -45,6 +46,13 @@ public class MainActivity extends Activity {
                 getJson2(url2);
             }
         });
+        btnPelear = (Button) findViewById(R.id.btnFight);
+        btnPelear.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent FightActivityIntent = new Intent(MainActivity.this,FightActivity.class);
+                startActivity(FightActivityIntent);
+            }
+        });
 
     }
     public void getJson(String url) {
@@ -59,7 +67,7 @@ public class MainActivity extends Activity {
                         imagen = PokInfo.getImageFront(response);
                         mTxtDisplay.setText(nombre);
                         mTxtPeso1.setText(peso);
-                        mTxtNum1.setText("#Pokedex: " + numPkmn1);
+                        mTxtNum1.setText(numPkmn);
                         new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnOne))
                                 .execute(imagen);
 
@@ -89,9 +97,9 @@ public class MainActivity extends Activity {
                         imagen2 = PokInfo.getImageFront(response);
                         mTxtDisplay2.setText(nombre2);
                         mTxtPeso2.setText(peso2);
-                        mTxtNum2.setText("#Pokedex: " + numPkmn2);
+                        mTxtNum2.setText(numPkmn2);
                         new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnTwo))
-                                .execute(imagen);
+                                .execute(imagen2);
 
                     }
                 }, new Response.ErrorListener() {
