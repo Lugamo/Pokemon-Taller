@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
                         nombre2 = PokInfo.getID(response);
                         peso2 = PokInfo.getWeight(response);
                         imagen2 = PokInfo.getImageFront(response);
-                        power1_2 = PokInfo.getPowerOne(response);
+                        //power1_2 = PokInfo.getPowerOne(response);
                         mTxtDisplay2.setText(nombre2);
                         mTxtPeso2.setText(peso2);
                         mTxtNum2.setText(numPkmn2);
