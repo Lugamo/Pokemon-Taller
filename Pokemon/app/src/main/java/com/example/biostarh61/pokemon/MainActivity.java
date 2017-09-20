@@ -19,7 +19,7 @@ import java.util.Random;
 
 public class MainActivity extends Activity {
     TextView mTxtDisplay,mTxtDisplay2,mTxtPeso1,mTxtPeso2,mTxtNum1,mTxtNum2;
-    String nombre,imagen,peso,numPkmn,nombre2,imagen2,peso2,numPkmn2;
+    String nombre,imagen,peso,power1,power2,numPkmn,nombre2,imagen2,imagenBack,peso2,numPkmn2,power1_2;
     Button btnGRandom, btnPelear;
 
     @Override
@@ -50,9 +50,18 @@ public class MainActivity extends Activity {
         btnPelear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent FightActivityIntent = new Intent(MainActivity.this,FightActivity.class);
+                FightActivityIntent.putExtra("nameOne",nombre);
+                FightActivityIntent.putExtra("nameTwo",nombre2);
+                FightActivityIntent.putExtra("imageOne",imagenBack);
+                FightActivityIntent.putExtra("imageTwo",imagen2);
+                FightActivityIntent.putExtra("powerOne",power1);
+                FightActivityIntent.putExtra("powerTwo",power2);
+                FightActivityIntent.putExtra("powerOne2",power1_2);
                 startActivity(FightActivityIntent);
+
             }
         });
+
 
     }
     public void getJson(String url) {
@@ -65,6 +74,9 @@ public class MainActivity extends Activity {
                         nombre = PokInfo.getID(response);
                         peso = PokInfo.getWeight(response);
                         imagen = PokInfo.getImageFront(response);
+                        imagenBack = PokInfo.getImageBack(response);
+                        power1 = PokInfo.getPowerOne(response);
+                        power2 = PokInfo.getPowerTwo(response);
                         mTxtDisplay.setText(nombre);
                         mTxtPeso1.setText(peso);
                         mTxtNum1.setText(numPkmn);
@@ -95,6 +107,7 @@ public class MainActivity extends Activity {
                         nombre2 = PokInfo.getID(response);
                         peso2 = PokInfo.getWeight(response);
                         imagen2 = PokInfo.getImageFront(response);
+                        power1_2 = PokInfo.getPowerOne(response);
                         mTxtDisplay2.setText(nombre2);
                         mTxtPeso2.setText(peso2);
                         mTxtNum2.setText(numPkmn2);
