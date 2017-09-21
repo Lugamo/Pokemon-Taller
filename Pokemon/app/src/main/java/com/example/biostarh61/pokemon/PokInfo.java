@@ -54,11 +54,10 @@ public class PokInfo {
         return back_image_url;
     }
     public static String getAbilities(JSONObject info, int num){
-        abilities = null;
         try {
             abilities = info.getJSONArray("abilities");
 
-            for (int i = 0; i < abilities.length(); i++) {
+            for (int i = 0; i < 2; i++) {
                 JSONObject c = abilities.getJSONObject(i);
                 // Ability node is JSON Object
                 JSONObject ability = c.getJSONObject("ability");

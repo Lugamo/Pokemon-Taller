@@ -53,6 +53,7 @@ public class MainActivity extends Activity {
                 FightActivityIntent.putExtra("nameOne",nombre);
                 FightActivityIntent.putExtra("nameTwo",nombre2);
                 FightActivityIntent.putExtra("imageOne",imagenBack);
+                FightActivityIntent.putExtra("imageOneFront",imagen);
                 FightActivityIntent.putExtra("imageTwo",imagen2);
                 FightActivityIntent.putExtra("powerOne",power1);
                 FightActivityIntent.putExtra("powerTwo",power2);
@@ -77,9 +78,9 @@ public class MainActivity extends Activity {
                         imagenBack = PokInfo.getImageBack(response);
                         power1 = PokInfo.getPowerOne(response);
                         power2 = PokInfo.getPowerTwo(response);
-                        mTxtDisplay.setText(nombre);
-                        mTxtPeso1.setText(peso);
-                        mTxtNum1.setText(numPkmn);
+                        mTxtDisplay.setText("Nombre: "+nombre);
+                        mTxtPeso1.setText("Peso: "+peso);
+                        mTxtNum1.setText("#Pokedex: "+numPkmn);
                         new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnOne))
                                 .execute(imagen);
 
@@ -107,10 +108,10 @@ public class MainActivity extends Activity {
                         nombre2 = PokInfo.getID(response);
                         peso2 = PokInfo.getWeight(response);
                         imagen2 = PokInfo.getImageFront(response);
-                        //power1_2 = PokInfo.getPowerOne(response);
-                        mTxtDisplay2.setText(nombre2);
-                        mTxtPeso2.setText(peso2);
-                        mTxtNum2.setText(numPkmn2);
+                        power1_2 = PokInfo.getPowerOne(response);
+                        mTxtDisplay2.setText("Nombre: "+nombre2);
+                        mTxtPeso2.setText("Peso: "+ peso2);
+                        mTxtNum2.setText("#Pokedex: "+numPkmn2);
                         new DownloadImageTask((ImageView) findViewById(R.id.imagePkmnTwo))
                                 .execute(imagen2);
 

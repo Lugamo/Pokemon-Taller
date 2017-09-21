@@ -1,6 +1,7 @@
 package com.example.biostarh61.pokemon;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.media.Image;
 import android.os.Bundle;
 import android.view.View;
@@ -12,7 +13,7 @@ public class FightActivity extends Activity {
 
     TextView TxtStatus,TxtlifeAlly,TxtlifeEnemy;
     Button btnPowerOne, btnPowerTwo;
-    String nameAlly,imageAlly,powerOneAlly,powerTwoAlly,nameEnemy,imageEnemy,powerOneEnemy;
+    String nameAlly,imageAlly,imageAllyFront,powerOneAlly,powerTwoAlly,nameEnemy,imageEnemy,powerOneEnemy;
     int lifeAlly=30,lifeEnemy=30;
 
 
@@ -27,14 +28,15 @@ public class FightActivity extends Activity {
         btnPowerTwo = (Button) findViewById(R.id.btnPowerTwo);
         nameAlly=getIntent().getExtras().getString("nameOne");
         imageAlly=getIntent().getExtras().getString("imageOne");
+        imageAllyFront=getIntent().getExtras().getString("imageOneFront");
         powerOneAlly=getIntent().getExtras().getString("powerOne");
         powerTwoAlly=getIntent().getExtras().getString("powerTwo");
 
 
         new DownloadImageTask((ImageView) findViewById(R.id.imageAlly))
                 .execute(imageAlly);
-        btnPowerOne.setText(powerOneAlly);
-        btnPowerTwo.setText(powerTwoAlly);
+        btnPowerOne.setText(nameAlly+": "+powerOneAlly);
+
 
         nameEnemy=getIntent().getExtras().getString("nameTwo");
         imageEnemy=getIntent().getExtras().getString("imageTwo");
@@ -42,14 +44,20 @@ public class FightActivity extends Activity {
 
         new DownloadImageTask((ImageView) findViewById(R.id.imageEnemy))
                 .execute(imageEnemy);
+        btnPowerTwo.setText(nameEnemy+": "+powerOneEnemy);
 
         establishLife(lifeAlly,lifeEnemy);
-        btnPowerOne = (Button) findViewById(R.id.btnRandom);
         btnPowerOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TxtStatus.setText(nameAlly + " ha usado " + powerOneAlly + " contra " + nameEnemy);
                 lifeEnemy = lifeEnemy -10;
                 establishLife(lifeAlly,lifeEnemy);
+
+
+            }
+        });
+        btnPowerTwo.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
                 TxtStatus.setText(nameEnemy + " ha usado " + powerOneEnemy + " contra " + nameAlly);
                 lifeAlly = lifeAlly - 10;
                 establishLife(lifeAlly,lifeEnemy);
@@ -61,15 +69,18 @@ public class FightActivity extends Activity {
     public void establishLife(int life1, int life2){
         TxtlifeAlly.setText(life1 + "/30");
         TxtlifeEnemy.setText(life2 + "/30");
-    }
-    public void letsWait()
-    {
-        try {
-            Thread.sleep(300);
-        }
-        catch (InterruptedException e)
+        if(life1<= 0)
         {
-            e.printStackTrace();
+            Intent WinnerActivityIntent = new Intent(FightActivity.this,WinnerActivity.class);
+            WinnerActivityIntent.putExtra("winner",imageEnemy);
+            startActivity(WinnerActivityIntent);
         }
+        if(life2<= 0)
+        {
+            Intent WinnerActivityIntent = new Intent(FightActivity.this,WinnerActivity.class);
+            WinnerActivityIntent.putExtra("winner",imageAllyFront);
+            startActivity(WinnerActivityIntent);
+        }
+
     }
 }
