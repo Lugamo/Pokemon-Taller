@@ -1,4 +1,4 @@
-package com.example.biostarh61.pokemon;
+package com.example.biostarh61.pokemon.Volley;
 
 /**
  * Created by biostar h61 on 13/09/2017.
@@ -7,7 +7,6 @@ package com.example.biostarh61.pokemon;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.util.LruCache;
-import android.view.View;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;

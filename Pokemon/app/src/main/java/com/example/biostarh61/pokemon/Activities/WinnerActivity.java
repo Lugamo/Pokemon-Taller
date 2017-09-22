@@ -1,8 +1,11 @@
-package com.example.biostarh61.pokemon;
+package com.example.biostarh61.pokemon.Activities;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ImageView;
+
+import com.example.biostarh61.pokemon.DownloadImageTask;
+import com.example.biostarh61.pokemon.R;
 
 public class WinnerActivity extends Activity {
 

@@ -1,4 +1,4 @@
-package com.example.biostarh61.pokemon;
+package com.example.biostarh61.pokemon.Pokemon;
 
 import org.json.JSONArray;
 import org.json.JSONException;
