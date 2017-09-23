@@ -23,16 +23,15 @@ import org.json.JSONObject;
 
 public class MainActivity extends Activity {
     TextView mTxtDisplay,mTxtDisplay2,mTxtPeso1,mTxtPeso2,mTxtNum1,mTxtNum2;
-    //String nombre,imagen,peso,power1,power2,numPkmn,nombre2,imagen2,imagenBack,peso2,numPkmn2,power1_2;
     Button btnGRandom, btnPelear;
     PokeApiFactory pokeApiFactory = new PokeApiFactory();
     PokeApi pokemonOne = pokeApiFactory.getResource("Pokemon");
     PokeApi pokemonTwo = pokeApiFactory.getResource("Pokemon");
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        //Se asocia la variable a cada elemento del layout
         mTxtDisplay = (TextView) findViewById(R.id.pkmNameOne);
         mTxtDisplay2 = (TextView) findViewById(R.id.pkmNameTwo);
         mTxtPeso1 = (TextView) findViewById(R.id.PkmnWeightOne);
@@ -44,19 +43,26 @@ public class MainActivity extends Activity {
         btnGRandom = (Button) findViewById(R.id.btnRandom);
         btnGRandom.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                int indicePokemon=(int) (Math.random()*200);
-                int indicePokemon2=(int) (Math.random()*200);
+                //Random para escoger cualquier pokemon entre 700
+                int indicePokemon=(int) (Math.random()*700);
+                int indicePokemon2=(int) (Math.random()*700);
                 String url = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon);
                 String url2 = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon2);
+                //Obteniendo el archivo JSON de la url
                 getJson(url);
                 getJson2(url2);
+                //Habilitando el boton de pelear
+                btnPelear.setEnabled(true);
 
             }
         });
         btnPelear = (Button) findViewById(R.id.btnFight);
+        //Deshabilitando el boton hasta que se generen los pokemones
+        btnPelear.setEnabled(false);
         btnPelear.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent FightActivityIntent = new Intent(MainActivity.this,FightActivity.class);
+                //Enviando informacion necesaria para la siguiente actividad sobre el pokemon
                 FightActivityIntent.putExtra("nameOne",pokemonOne.name());
                 FightActivityIntent.putExtra("nameTwo",pokemonTwo.name());
                 FightActivityIntent.putExtra("imageOne",pokemonOne.back_image());
@@ -78,13 +84,7 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        /*numPkmn = PokInfo.getNumero(response);
-                        nombre = PokInfo.getID(response);
-                        peso = PokInfo.getWeight(response);
-                        imagen = PokInfo.getImageFront(response);
-                        imagenBack = PokInfo.getImageBack(response);
-                        power1 = PokInfo.getPowerOne(response);
-                        power2 = PokInfo.getPowerTwo(response);*/
+                        //enviando JSON a la clase pokemon
                         pokemonOne.getInfo(response);
                         mTxtDisplay.setText("Nombre: "+pokemonOne.name());
                         mTxtPeso1.setText("Peso: "+pokemonOne.weight());
@@ -112,11 +112,7 @@ public class MainActivity extends Activity {
 
                     @Override
                     public void onResponse(JSONObject response) {
-                        /*numPkmn2 = PokInfo.getNumero(response);
-                        nombre2 = PokInfo.getID(response);
-                        peso2 = PokInfo.getWeight(response);
-                        imagen2 = PokInfo.getImageFront(response);
-                        power1_2 = PokInfo.getPowerOne(response);*/
+                        //enviando JSON a la clase pokemon
                         pokemonTwo.getInfo(response);
                         mTxtDisplay2.setText("Nombre: "+pokemonTwo.name());
                         mTxtPeso2.setText("Peso: "+ pokemonTwo.weight());

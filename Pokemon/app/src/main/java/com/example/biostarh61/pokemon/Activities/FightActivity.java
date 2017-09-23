@@ -16,18 +16,20 @@ public class FightActivity extends Activity {
     TextView TxtStatus,TxtlifeAlly,TxtlifeEnemy;
     Button btnPowerOne, btnPowerTwo;
     String nameAlly,imageAlly,imageAllyFront,powerOneAlly,powerTwoAlly,nameEnemy,imageEnemy,powerOneEnemy;
-    int lifeAlly=30,lifeEnemy=30;
+    int lifeAlly=100,lifeEnemy=100,daño;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fight);
+        //Se asocia la variable a cada elemento del layout
         TxtStatus = (TextView) findViewById(R.id.PkmnStatus);
         TxtlifeAlly = (TextView) findViewById(R.id.lifeAlly);
         TxtlifeEnemy = (TextView) findViewById(R.id.lifeEnemy);
         btnPowerOne = (Button) findViewById(R.id.btnPowerOne);
         btnPowerTwo = (Button) findViewById(R.id.btnPowerTwo);
+        //Extrayendo la informacion del intent
         nameAlly=getIntent().getExtras().getString("nameOne");
         imageAlly=getIntent().getExtras().getString("imageOne");
         imageAllyFront=getIntent().getExtras().getString("imageOneFront");
@@ -52,25 +54,26 @@ public class FightActivity extends Activity {
         btnPowerOne.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TxtStatus.setText(nameAlly + " ha usado " + powerOneAlly + " contra " + nameEnemy);
-                lifeEnemy = lifeEnemy -10;
+                daño=(int) (Math.random()*20);
+                lifeEnemy = lifeEnemy - daño;
                 establishLife(lifeAlly,lifeEnemy);
-
-
             }
         });
         btnPowerTwo.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 TxtStatus.setText(nameEnemy + " ha usado " + powerOneEnemy + " contra " + nameAlly);
-                lifeAlly = lifeAlly - 10;
+                daño=(int) (Math.random()*20);
+                lifeAlly = lifeAlly - daño;
                 establishLife(lifeAlly,lifeEnemy);
 
             }
         });
 
     }
+    //Metodo para establecer y actualizar la vida del aliado y de enemigo
     public void establishLife(int life1, int life2){
-        TxtlifeAlly.setText(life1 + "/30");
-        TxtlifeEnemy.setText(life2 + "/30");
+        TxtlifeAlly.setText(life1 + "/100");
+        TxtlifeEnemy.setText(life2 + "/100");
         if(life1<= 0)
         {
             Intent WinnerActivityIntent = new Intent(FightActivity.this,WinnerActivity.class);
