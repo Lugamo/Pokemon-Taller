@@ -46,8 +46,8 @@ public class MainActivity extends Activity {
                 //Random para escoger cualquier pokemon entre 700
                 int indicePokemon=(int) (Math.random()*700);
                 int indicePokemon2=(int) (Math.random()*700);
-                String url = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon);
-                String url2 = ("http://pokeapi.co/api/v2/pokemon/"+indicePokemon2);
+                String url = ("https://pokeapi.co/api/v2/pokemon/"+indicePokemon);
+                String url2 = ("https://pokeapi.co/api/v2/pokemon/"+indicePokemon2);
                 //Obteniendo el archivo JSON de la url
                 getJson(url);
                 getJson2(url2);
