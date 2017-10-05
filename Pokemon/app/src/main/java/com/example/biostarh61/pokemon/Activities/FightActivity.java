@@ -55,7 +55,7 @@ public class FightActivity extends Activity {
             public void onClick(View v) {
                 TxtStatus.setText(nameAlly + " ha usado " + powerOneAlly + " contra " + nameEnemy);
                 daño=(int) (Math.random()*20);
-                lifeEnemy = lifeEnemy - daño;
+                lifeEnemy = setLife(lifeEnemy,daño);
                 establishLife(lifeAlly,lifeEnemy);
             }
         });
@@ -63,7 +63,7 @@ public class FightActivity extends Activity {
             public void onClick(View v) {
                 TxtStatus.setText(nameEnemy + " ha usado " + powerOneEnemy + " contra " + nameAlly);
                 daño=(int) (Math.random()*20);
-                lifeAlly = lifeAlly - daño;
+                lifeAlly = setLife(lifeAlly,daño);
                 establishLife(lifeAlly,lifeEnemy);
 
             }
@@ -88,4 +88,10 @@ public class FightActivity extends Activity {
         }
 
     }
+    public int setLife(int Actual_life, int damage){
+        int resultlife;
+        resultlife = Actual_life - damage;
+        return resultlife;
+    }
+
 }
